@@ -1,4 +1,19 @@
-﻿using System.Collections.Generic;
+﻿// 
+// Copyright (C) 2012  Chris Chenery
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System.Collections.Generic;
 using IHI.Server.Habbos;
 using IHI.Server.Networking;
 using IHI.Server.Networking.Messages;
@@ -18,15 +33,14 @@ namespace IHI.Server.Plugins.Cecer1.PreLoginHandlers
         }
 
 
-
-	    private static void RegisterHandlers(object source, ConnectionEventArgs args)
+        private static void RegisterHandlers(object source, ConnectionEventArgs args)
 
         {
-            var connection = source as IonTcpConnection;
+            IonTcpConnection connection = source as IonTcpConnection;
 
             if (connection == null)
                 return;
-            
+
             connection.
                 AddHandler(2002, PacketHandlerPriority.DefaultAction, ProcessSessionRequest).
                 AddHandler(206, PacketHandlerPriority.DefaultAction, ProcessEncryptionRequest).
@@ -49,37 +63,37 @@ namespace IHI.Server.Plugins.Cecer1.PreLoginHandlers
         private static void ProcessEncryptionRequest(Habbo sender, IncomingMessage message)
         {
             new MSetupEncryption
-            {
-                UnknownA = false
-            }.Send(sender);
+                {
+                    UnknownA = false
+                }.Send(sender);
         }
 
         private static void ProcessSessionRequest(Habbo sender, IncomingMessage message)
         {
             new MSessionParams
-            {
-                A = 9,
-                B = 0,
-                C = 0,
-                D = 1,
-                E = 1,
-                F = 3,
-                G = 0,
-                H = 2,
-                I = 1,
-                J = 4,
-                K = 0,
-                L = 5,
-                DateFormat = "dd-MM-yyyy",
-                M = "",
-                N = 7,
-                O = false,
-                P = 8,
-                URL = "http://ihi.cecer1.com",
-                Q = "",
-                R = 9,
-                S = false
-            }.Send(sender);
+                {
+                    A = 9,
+                    B = 0,
+                    C = 0,
+                    D = 1,
+                    E = 1,
+                    F = 3,
+                    G = 0,
+                    H = 2,
+                    I = 1,
+                    J = 4,
+                    K = 0,
+                    L = 5,
+                    DateFormat = "dd-MM-yyyy",
+                    M = "",
+                    N = 7,
+                    O = false,
+                    P = 8,
+                    URL = "http://ihi.cecer1.com",
+                    Q = "",
+                    R = 9,
+                    S = false
+                }.Send(sender);
         }
 
         private static void ProcessSSOTicket(Habbo sender, IncomingMessage message)
@@ -105,9 +119,9 @@ namespace IHI.Server.Plugins.Cecer1.PreLoginHandlers
                 {
                     // Disconnect them.
                     new MConnectionClosed
-                    {
-                        Reason = ConnectionClosedReason.ConcurrentLogin
-                    }.Send(loggedInHabbo);
+                        {
+                            Reason = ConnectionClosedReason.ConcurrentLogin
+                        }.Send(loggedInHabbo);
                     loggedInHabbo.GetConnection().Disconnect();
                 }
                 loggedInHabbo.LoginMerge(sender);
