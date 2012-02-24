@@ -35,11 +35,11 @@ namespace IHI.Server.Plugins.Cecer1.PreLoginHandlers
     {
         public override void Start()
         {
-            Core serverCore = CoreManager.ServerCore;
+            ServerCore ServerCore = CoreManager.ServerCore;
 
-            serverCore.GetConnectionManager().OnConnectionOpen += RegisterHandlers;
-            serverCore.GetHabboDistributor().OnPreHabboLogin += SendPermissions;
-            serverCore.GetHabboDistributor().OnHabboLogin += SendAuthenticationOkay;
+            ServerCore.GetConnectionManager().OnConnectionOpen += RegisterHandlers;
+            ServerCore.GetHabboDistributor().OnPreHabboLogin += SendPermissions;
+            ServerCore.GetHabboDistributor().OnHabboLogin += SendAuthenticationOkay;
         }
 
 
