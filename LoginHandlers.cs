@@ -35,16 +35,15 @@ namespace IHI.Server.Plugins.Cecer1.PreLoginHandlers
     {
         public override void Start()
         {
-            ServerCore ServerCore = CoreManager.ServerCore;
+            ServerCore serverCore = CoreManager.ServerCore;
 
-            ServerCore.GetConnectionManager().OnConnectionOpen += RegisterHandlers;
-            ServerCore.GetHabboDistributor().OnPreHabboLogin += SendPermissions;
-            ServerCore.GetHabboDistributor().OnHabboLogin += SendAuthenticationOkay;
+            serverCore.GetConnectionManager().OnConnectionOpen += RegisterHandlers;
+            serverCore.GetHabboDistributor().OnPreHabboLogin += SendPermissions;
+            serverCore.GetHabboDistributor().OnHabboLogin += SendAuthenticationOkay;
         }
 
 
         private static void RegisterHandlers(object source, ConnectionEventArgs args)
-
         {
             IonTcpConnection connection = source as IonTcpConnection;
 
